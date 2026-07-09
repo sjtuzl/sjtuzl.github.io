@@ -1,0 +1,19 @@
+---
+layout: default
+title: "2007 年的文章"
+permalink: /2007/
+---
+<div class="post-header" style="max-width:var(--max-wide)">
+  <h1 class="post-title">2007 年的文章</h1>
+  <p class="post-meta"><a href="/archive.html">← 全部归档</a></p>
+</div>
+<section class="archive-year">
+  <ul class="archive-list">
+  {% for post in site.posts %}{% assign y = post.date | date: '%Y' %}{% if y == '2007' %}
+    <li>
+      <span class="a-date">{{ post.date | date: "%m-%d" }}</span>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endif %}{% endfor %}
+  </ul>
+</section>

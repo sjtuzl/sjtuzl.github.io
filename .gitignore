@@ -1,0 +1,10 @@
+_site/
+.jekyll-cache/
+.jekyll-metadata
+vendor/
+.bundle/
+.DS_Store
+_preview/
+# Not tracked: workflow needs a `workflow`-scoped token; we deploy via classic
+# Pages instead. Kept locally in case you switch to GitHub Actions later.
+.github/

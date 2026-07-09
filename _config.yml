@@ -1,0 +1,52 @@
+# ---------------------------------------------------------------------------
+# Ling Zhang's Blog — Jekyll configuration
+# ---------------------------------------------------------------------------
+title: "Ling Zhang's Blog"
+description: "张凌的个人博客 — 技术、IBM、生活随笔（2004 起，自 WordPress 迁移）"
+url: "https://sjtuzl.github.io"
+baseurl: ""
+lang: "zh-CN"
+timezone: "Asia/Shanghai"
+
+author:
+  name: "Ling Zhang"
+  linkedin: "https://www.linkedin.com/in/zhangling"
+
+# Posts keep the WordPress date-based URL shape: /YYYYMMDD/slug.html
+# (each post also sets an explicit `permalink` in its front matter, which wins).
+permalink: /:year:month:day/:title.html
+
+# Home pagination (jekyll-paginate v1 — simple and reliable).
+paginate: 10
+paginate_path: "/page/:num/"
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  parse_block_html: false   # leave migrated raw HTML bodies untouched
+  hard_wrap: false
+
+# Home feed shows the full article body (everything before this marker); the
+# archived comments live after it, so they appear on the post page only.
+excerpt_separator: "<!--more-->"
+
+plugins:
+  - jekyll-paginate
+  - jekyll-feed
+  - jekyll-sitemap
+
+# Giscus (new comments). Turn on AFTER enabling repo Discussions + giscus.app.
+giscus:
+  enabled: false
+  repo: "sjtuzl/sjtuzl.github.io"
+  repo_id: ""
+  category: "Announcements"
+  category_id: ""
+
+exclude:
+  - migrate/
+  - Gemfile
+  - Gemfile.lock
+  - README.md
+  - vendor/
+  - .github/

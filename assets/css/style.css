@@ -1,0 +1,170 @@
+/* =====================================================================
+   Ling Zhang's Blog — global stylesheet
+   Inspired by the WordPress "Twenty Twenty" theme (accent #cd2653,
+   centered single column, large readable type).
+
+   This is the ONE place for global look & feel. Individual posts contain
+   NO styling of their own — restyling the whole blog means editing this
+   file (and the header/footer includes) only.
+   ===================================================================== */
+
+:root {
+  --accent: #cd2653;
+  --accent-dark: #b31e46;
+  --text: #202020;
+  --text-muted: #6d6d6d;
+  --bg: #f5f5f3;
+  --bg-content: #ffffff;
+  --border: #e2e2e2;
+  --max-text: 46rem;     /* single-post reading column */
+  --max-wide: 64rem;     /* header / lists / archive       */
+  --serif: Georgia, "Songti SC", "SimSun", serif;
+  --sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
+          "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+}
+
+/* ---- base ---------------------------------------------------------- */
+* { box-sizing: border-box; }
+html { font-size: 18px; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text);
+  background: var(--bg);
+}
+img { max-width: 100%; height: auto; }
+a { color: var(--accent); text-decoration: none; }
+a:hover, a:focus { color: var(--accent-dark); text-decoration: underline; }
+
+.container { width: 92%; max-width: var(--max-wide); margin: 0 auto; }
+
+/* ---- site header --------------------------------------------------- */
+.site-header {
+  background: var(--bg-content);
+  border-bottom: 1px solid var(--border);
+  padding: 2.6rem 0 2rem;
+  text-align: center;
+}
+.site-header .avatar {
+  width: 108px; height: 108px; border-radius: 50%;
+  object-fit: cover; display: block; margin: 0 auto 1rem;
+  box-shadow: 0 2px 10px rgba(0,0,0,.12);
+}
+.site-title {
+  font-size: 1.9rem; font-weight: 700; letter-spacing: -.02em;
+  margin: 0 0 .4rem;
+}
+.site-title a { color: var(--text); }
+.site-title a:hover { color: var(--accent); text-decoration: none; }
+.site-bio { color: var(--text-muted); font-size: .95rem; margin: 0 0 .5rem; }
+.site-social a { font-size: .9rem; }
+
+/* ---- primary nav --------------------------------------------------- */
+.site-nav {
+  background: var(--bg-content);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 10;
+}
+.site-nav ul {
+  list-style: none; margin: 0 auto; padding: .6rem 0;
+  display: flex; gap: 1.6rem; justify-content: center; flex-wrap: wrap;
+}
+.site-nav a {
+  color: var(--text); font-weight: 600; font-size: .95rem;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.site-nav a:hover { color: var(--accent); text-decoration: none; }
+
+/* ---- main / article ------------------------------------------------ */
+.site-main { padding: 2.6rem 0 3.5rem; }
+.post { background: var(--bg-content); }
+
+.post-header { max-width: var(--max-text); margin: 0 auto 1.6rem; }
+.post-title { font-size: 2.1rem; line-height: 1.2; margin: 0 0 .5rem; font-weight: 800; }
+.post-title a { color: var(--text); }
+.post-meta { color: var(--text-muted); font-size: .85rem; text-transform: uppercase; letter-spacing: .05em; }
+
+.post-content {
+  max-width: var(--max-text); margin: 0 auto;
+  font-size: 1.12rem; line-height: 1.8;
+  overflow-wrap: break-word;
+}
+.post-content p { margin: 0 0 1.3rem; }
+.post-content h2 { font-size: 1.5rem; margin: 2rem 0 .8rem; }
+.post-content h3 { font-size: 1.25rem; margin: 1.6rem 0 .6rem; }
+.post-content img { border-radius: 2px; }
+.post-content a { text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+.post-content blockquote {
+  margin: 1.5rem 0; padding: .4rem 0 .4rem 1.2rem;
+  border-left: 3px solid var(--accent); color: var(--text-muted); font-style: italic;
+}
+.post-content pre, .post-content code {
+  font-family: "SF Mono", Menlo, Consolas, monospace; font-size: .9em;
+}
+.post-content pre {
+  background: #f3f3f3; padding: 1rem; overflow-x: auto; border-radius: 4px;
+}
+.post-content table { border-collapse: collapse; max-width: 100%; overflow-x: auto; display: block; }
+.post-content td, .post-content th { border: 1px solid var(--border); padding: .4rem .6rem; }
+/* legacy WP alignment helpers */
+.aligncenter, img.aligncenter { display: block; margin-left: auto; margin-right: auto; }
+.alignright { float: right; margin: 0 0 1rem 1.5rem; }
+.alignleft  { float: left;  margin: 0 1.5rem 1rem 0; }
+[align="center"] { text-align: center; }
+
+/* ---- archived comments -------------------------------------------- */
+.archived-comments { max-width: var(--max-text); margin: 3rem auto 0; padding-top: 1.6rem; border-top: 1px solid var(--border); }
+.comments-title { font-size: 1.4rem; margin: 0 0 .3rem; }
+.comments-note { color: var(--text-muted); font-size: .85rem; margin: 0 0 1.4rem; }
+.comment-list { list-style: none; margin: 0; padding: 0; }
+.comment { padding: 1rem 0; border-bottom: 1px solid var(--border); }
+.comment-meta { margin-bottom: .3rem; }
+.comment-author { font-weight: 700; }
+.comment-date { color: var(--text-muted); font-size: .8rem; margin-left: .7rem; }
+.comment-body { font-size: 1rem; }
+.comment-body p { margin: 0 0 .6rem; }
+.giscus-wrap { max-width: var(--max-text); margin: 2.5rem auto 0; }
+
+/* ---- home feed (full body per entry) ------------------------------- */
+.post-feed { }
+.feed-entry { padding: 2.2rem 0 2.6rem; border-bottom: 1px solid var(--border); }
+.feed-entry:first-child { padding-top: .3rem; }
+.feed-entry .post-title { font-size: 1.75rem; }
+.feed-entry .post-title a { color: var(--text); }
+.feed-entry .post-title a:hover { color: var(--accent); text-decoration: none; }
+.read-more { max-width: var(--max-text); margin: 1.2rem auto 0; }
+.read-more a { font-weight: 600; text-transform: uppercase; letter-spacing: .04em; font-size: .85rem; }
+
+/* ---- post lists (archive / year) ----------------------------------- */
+.post-list { max-width: var(--max-wide); margin: 0 auto; list-style: none; padding: 0; }
+.post-list-item { padding: 1.3rem 0; border-bottom: 1px solid var(--border); }
+.post-list-item .entry-title { font-size: 1.35rem; margin: 0 0 .2rem; }
+.post-list-item .entry-meta { color: var(--text-muted); font-size: .8rem; text-transform: uppercase; letter-spacing: .04em; }
+.post-list-item .entry-excerpt { color: #444; margin: .4rem 0 0; }
+
+.archive-year { max-width: var(--max-wide); margin: 2.4rem auto 0; }
+.archive-year h2 { font-size: 1.6rem; color: var(--accent); border-bottom: 2px solid var(--border); padding-bottom: .3rem; }
+.archive-list { list-style: none; padding: 0; margin: 0; }
+.archive-list li { display: flex; gap: 1rem; padding: .35rem 0; }
+.archive-list .a-date { color: var(--text-muted); font-variant-numeric: tabular-nums; min-width: 5.5rem; font-size: .9rem; }
+
+/* ---- pagination ---------------------------------------------------- */
+.pagination { max-width: var(--max-wide); margin: 2.5rem auto 0; display: flex; justify-content: space-between; align-items: center; }
+.pagination a, .pagination span { font-weight: 600; }
+.pagination .page-num { color: var(--text-muted); font-weight: 400; font-size: .9rem; }
+
+/* ---- footer -------------------------------------------------------- */
+.site-footer {
+  border-top: 1px solid var(--border); background: var(--bg-content);
+  text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: .85rem;
+}
+.site-footer a { color: var(--text-muted); text-decoration: underline; }
+
+/* ---- responsive ---------------------------------------------------- */
+@media (max-width: 640px) {
+  html { font-size: 17px; }
+  .post-title { font-size: 1.7rem; }
+  .post-content { font-size: 1.05rem; }
+}

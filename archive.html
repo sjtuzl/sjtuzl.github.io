@@ -1,0 +1,24 @@
+---
+layout: default
+title: 归档
+permalink: /archive.html
+---
+<div class="post-header" style="max-width:var(--max-wide)">
+  <h1 class="post-title">全部文章归档</h1>
+  <p class="post-meta">共 {{ site.posts | size }} 篇</p>
+</div>
+
+{% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+{% for year in posts_by_year %}
+<section class="archive-year">
+  <h2>{{ year.name }} <span style="font-size:.7em;color:var(--text-muted)">({{ year.items | size }})</span></h2>
+  <ul class="archive-list">
+  {% for post in year.items %}
+    <li>
+      <span class="a-date">{{ post.date | date: "%m-%d" }}</span>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+  </ul>
+</section>
+{% endfor %}

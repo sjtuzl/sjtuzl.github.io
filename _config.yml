@@ -49,4 +49,6 @@ exclude:
   - Gemfile.lock
   - README.md
   - vendor/
+  - .bundle/
+  - bin/
   - .github/

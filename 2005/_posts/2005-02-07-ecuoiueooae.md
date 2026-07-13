@@ -20,8 +20,8 @@ out。这个办法利用了可冲值公交卡check in和check out之间没有设
 <!--more-->
 {% raw %}
 <section class="archived-comments" id="comments">
-<h2 class="comments-title">评论 <span class="comment-count">(1)</span></h2>
-<p class="comments-note">以下评论迁移自原博客，仅作存档，不可回复。</p>
+<h2 class="comments-title">Comments <span class="comment-count">(1)</span></h2>
+<p class="comments-note">These comments were migrated from the original blog and are archived read-only.</p>
 <ol class="comment-list">
 <li class="comment">
   <div class="comment-meta"><span class="comment-author">cc</span><time class="comment-date">2005-06-06 22:13:59</time></div>

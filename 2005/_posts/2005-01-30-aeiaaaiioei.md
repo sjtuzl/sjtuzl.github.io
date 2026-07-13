@@ -24,8 +24,8 @@ Media产品中去；Word，Excel也是同样的情形。这些垄断产品，从
 <!--more-->
 {% raw %}
 <section class="archived-comments" id="comments">
-<h2 class="comments-title">评论 <span class="comment-count">(2)</span></h2>
-<p class="comments-note">以下评论迁移自原博客，仅作存档，不可回复。</p>
+<h2 class="comments-title">Comments <span class="comment-count">(2)</span></h2>
+<p class="comments-note">These comments were migrated from the original blog and are archived read-only.</p>
 <ol class="comment-list">
 <li class="comment">
   <div class="comment-meta"><span class="comment-author">floyd</span><time class="comment-date">2005-02-02 20:48:58</time></div>

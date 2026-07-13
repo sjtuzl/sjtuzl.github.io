@@ -22,8 +22,8 @@ notes发过来的邮件有一个很有趣的属性：附件的图标是发送者
 <!--more-->
 {% raw %}
 <section class="archived-comments" id="comments">
-<h2 class="comments-title">评论 <span class="comment-count">(3)</span></h2>
-<p class="comments-note">以下评论迁移自原博客，仅作存档，不可回复。</p>
+<h2 class="comments-title">Comments <span class="comment-count">(3)</span></h2>
+<p class="comments-note">These comments were migrated from the original blog and are archived read-only.</p>
 <ol class="comment-list">
 <li class="comment">
   <div class="comment-meta"><span class="comment-author">石头</span><time class="comment-date">2006-03-24 15:35:44</time></div>

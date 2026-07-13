@@ -30,8 +30,8 @@ University，在计算机系一个教授的办公桌上发现上面整整放着8
 <!--more-->
 {% raw %}
 <section class="archived-comments" id="comments">
-<h2 class="comments-title">评论 <span class="comment-count">(4)</span></h2>
-<p class="comments-note">以下评论迁移自原博客，仅作存档，不可回复。</p>
+<h2 class="comments-title">Comments <span class="comment-count">(4)</span></h2>
+<p class="comments-note">These comments were migrated from the original blog and are archived read-only.</p>
 <ol class="comment-list">
 <li class="comment">
   <div class="comment-meta"><span class="comment-author">匿名网友</span><time class="comment-date">2004-10-26 23:21:28</time></div>

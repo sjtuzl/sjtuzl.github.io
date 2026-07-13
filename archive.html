@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 归档
+title: Archive
 permalink: /archive.html
 ---
 <div class="post-header" style="max-width:var(--max-wide)">
-  <h1 class="post-title">全部文章归档</h1>
-  <p class="post-meta">共 {{ site.posts | size }} 篇</p>
+  <h1 class="post-title">All Posts</h1>
+  <p class="post-meta">{{ site.posts | size }} posts</p>
 </div>
 
 {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}

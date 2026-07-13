@@ -2,7 +2,7 @@
 # Ling Zhang's Blog — Jekyll configuration
 # ---------------------------------------------------------------------------
 title: "Ling Zhang's Blog"
-description: "张凌的个人博客 — 技术、IBM、生活随笔（2004 起，自 WordPress 迁移）"
+description: "Ling Zhang's Blog — tech, work, and life notes (since 2004, migrated from WordPress)"
 url: "https://sjtuzl.github.io"
 baseurl: ""
 lang: "zh-CN"

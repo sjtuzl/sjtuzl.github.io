@@ -37,11 +37,11 @@ plugins:
 
 # Giscus (new comments). Turn on AFTER enabling repo Discussions + giscus.app.
 giscus:
-  enabled: false
+  enabled: true
   repo: "sjtuzl/sjtuzl.github.io"
-  repo_id: ""
+  repo_id: "R_kgDOTSgb9w"
   category: "Announcements"
-  category_id: ""
+  category_id: "DIC_kwDOTSgb984DBEjD"
 
 exclude:
   - migrate/

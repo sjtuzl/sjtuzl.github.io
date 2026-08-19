@@ -57,6 +57,8 @@ exclude:
   - Gemfile
   - Gemfile.lock
   - README.md
+  - POST_TEMPLATE.md
+  - start.sh
   - vendor/
   - .bundle/
   - bin/

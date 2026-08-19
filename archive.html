@@ -4,8 +4,8 @@ title: Archive
 permalink: /archive.html
 ---
 <div class="post-header" style="max-width:var(--max-wide)">
-  <h1 class="post-title">All Posts</h1>
-  <p class="post-meta">{{ site.posts | size }} posts</p>
+  <h1 class="post-title" data-i18n="archive.heading">All Posts</h1>
+  <p class="post-meta" data-i18n-tpl="archive.count" data-n1="{{ site.posts | size }}">{{ site.posts | size }} posts</p>
 </div>
 
 {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}

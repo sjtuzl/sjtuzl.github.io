@@ -1,27 +1,44 @@
 <!-- Global site header + primary navigation.
      Single source of truth for the banner/avatar/bio/nav across the whole
-     blog (requirement: chrome must live in ONE place, never inside posts). -->
+     blog (requirement: chrome must live in ONE place, never inside posts).
+
+     Both layouts share ONE sticky top bar (.site-topbar): a compact
+     avatar + title on the left, the nav centered, and the language toggle
+     (中文 | English) on the right. It stays pinned while scrolling, so the
+     avatar never disappears. On non-post pages the full centered banner
+     (large avatar + bio) sits ABOVE the sticky bar and scrolls away.
+     Labels carry data-i18n keys so the toggle swaps EN/ZH client-side. -->
+{% assign lang_toggle = '<div class="lang-toggle"><a href="?lang=zh" data-set-lang="zh">中文</a><span class="sep">|</span><a href="?lang=en" data-set-lang="en">English</a></div>' %}
+{% unless page.layout == 'post' %}
 <header class="site-header">
   <div class="container">
     <img class="avatar" src="/assets/media/photos/zhangling2025.png"
          alt="Ling Zhang" width="108" height="108">
-    <h1 class="site-title"><a href="/">Ling Zhang's Blog</a></h1>
+    <h1 class="site-title"><a href="/" data-i18n="brand">Ling Zhang's Blog</a></h1>
     <p class="site-bio">
-      Director of AI Lab (current), CHINT GROUP<br>
-      VP of Engineering, Cloudwalk Technology<br>
-      IBM Senior Technical Staff Member &amp; Member of IBM Academy of Technology
+      <span data-i18n="bio.role1">Director of AI Lab (current), CHINT GROUP</span><br>
+      <span data-i18n="bio.role2">VP of Engineering, Cloudwalk Technology</span><br>
+      <span data-i18n="bio.role2b">VP of Technology, Transfar Zhilian</span><br>
+      <span data-i18n="bio.role3">IBM Senior Technical Staff Member &amp; Member of IBM Academy of Technology</span>
     </p>
     <p class="site-social">
       <a href="https://www.linkedin.com/in/zhangling" rel="me noopener">LinkedIn</a>
     </p>
   </div>
 </header>
-<nav class="site-nav">
+{% endunless %}
+<header class="site-topbar">
   <div class="container">
-    <ul>
-      <li><a href="/">Home</a></li>
-      <li><a href="/archive.html">Archive</a></li>
-      <li><a href="/about.html">About</a></li>
-    </ul>
+    <a class="brand" href="/">
+      <img class="avatar" src="/assets/media/photos/zhangling2025.png"
+           alt="Ling Zhang" width="40" height="40">
+      <span class="site-title" data-i18n="brand">Ling Zhang's Blog</span>
+    </a>
+    <nav class="topbar-nav">
+      <a href="/" data-i18n="nav.home">Home</a>
+      <a href="/archive.html" data-i18n="nav.archive">Archive</a>
+      <a href="/about.html" data-i18n="nav.about">About</a>
+    </nav>
+    {{ lang_toggle }}
   </div>
-</nav>
+</header>

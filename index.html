@@ -11,17 +11,17 @@ layout: default
     <div class="post-content">
       {{ post.excerpt }}
     </div>
-    <p class="read-more"><a href="{{ post.url }}">Read more{% if post.has_comments %} &amp; comments{% endif %} →</a></p>
+    <p class="read-more"><a href="{{ post.url }}"><span data-i18n="index.readmore">Read more</span>{% if post.has_comments %}<span data-i18n="index.andcomments"> &amp; comments</span>{% endif %} →</a></p>
   </article>
 {% endfor %}
 </div>
 
 <nav class="pagination">
   {% if paginator.previous_page %}
-    <a href="{{ paginator.previous_page_path | relative_url }}">← Newer posts</a>
+    <a href="{{ paginator.previous_page_path | relative_url }}" data-i18n="index.newer">← Newer posts</a>
   {% else %}<span></span>{% endif %}
-  <span class="page-num">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
+  <span class="page-num" data-i18n-tpl="page" data-n1="{{ paginator.page }}" data-n2="{{ paginator.total_pages }}">Page {{ paginator.page }} of {{ paginator.total_pages }}</span>
   {% if paginator.next_page %}
-    <a href="{{ paginator.next_page_path | relative_url }}">Older posts →</a>
+    <a href="{{ paginator.next_page_path | relative_url }}" data-i18n="index.older">Older posts →</a>
   {% else %}<span></span>{% endif %}
 </nav>

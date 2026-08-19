@@ -15,6 +15,7 @@
   --text-muted: #6d6d6d;
   --bg: #f5f5f3;
   --bg-content: #ffffff;
+  --bg-reading: #f4ecdd;   /* beige reading surface for single posts */
   --border: #e2e2e2;
   --max-text: 46rem;     /* single-post reading column */
   --max-wide: 64rem;     /* header / lists / archive       */
@@ -32,7 +33,7 @@ body {
   font-size: 1.05rem;
   line-height: 1.7;
   color: var(--text);
-  background: var(--bg);
+  background: var(--bg-reading);   /* beige content surface, site-wide */
 }
 img { max-width: 100%; height: auto; }
 a { color: var(--accent); text-decoration: none; }
@@ -44,12 +45,12 @@ a:hover, a:focus { color: var(--accent-dark); text-decoration: underline; }
 .site-header {
   background: var(--bg-content);
   border-bottom: 1px solid var(--border);
-  padding: 2.6rem 0 2rem;
+  padding: 1.4rem 0 1rem;
   text-align: center;
 }
 .site-header .avatar {
   width: 108px; height: 108px; border-radius: 50%;
-  object-fit: cover; display: block; margin: 0 auto 1rem;
+  object-fit: cover; display: block; margin: 0 auto .7rem;
   box-shadow: 0 2px 10px rgba(0,0,0,.12);
 }
 .site-title {
@@ -58,8 +59,53 @@ a:hover, a:focus { color: var(--accent-dark); text-decoration: underline; }
 }
 .site-title a { color: var(--text); }
 .site-title a:hover { color: var(--accent); text-decoration: none; }
-.site-bio { color: var(--text-muted); font-size: .95rem; margin: 0 0 .5rem; }
+.site-bio { color: var(--text-muted); font-size: .95rem; margin: 0 0 .3rem; }
+.site-social { margin: .1rem 0 0; }
 .site-social a { font-size: .9rem; }
+
+/* Single blog entry: brand + nav merged into one compact sticky top bar,
+   pinned to the top of the viewport while reading. */
+.site-topbar {
+  background: var(--bg-content);
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0; z-index: 20;
+}
+.site-topbar .container {
+  position: relative;
+  display: flex; align-items: center;
+  gap: 1rem; padding: .5rem 0;
+}
+.site-topbar .brand {
+  display: inline-flex; align-items: center; gap: .6rem; flex-shrink: 0;
+  transition: opacity .2s ease;
+}
+.site-topbar .brand:hover { text-decoration: none; }
+/* On pages that ALSO show the full banner (home/archive/about), the sticky
+   bar's mini brand stays hidden until the banner scrolls out of view — so
+   the avatar never appears twice at once. topbar.js toggles .is-visible.
+   (Kept as visibility:hidden, not display:none, so nav stays centered and
+   the toggle stays right.) Post pages have no banner, so their brand is
+   always shown. */
+body:not(.layout-post) .site-topbar .brand { opacity: 0; visibility: hidden; }
+body:not(.layout-post) .site-topbar .brand.is-visible { opacity: 1; visibility: visible; }
+.site-topbar .avatar {
+  width: 40px; height: 40px; border-radius: 50%; object-fit: cover;
+  box-shadow: 0 1px 5px rgba(0,0,0,.12);
+}
+.site-topbar .site-title {
+  font-size: 1.15rem; font-weight: 700; color: var(--text); letter-spacing: -.01em;
+}
+.site-topbar .brand:hover .site-title { color: var(--accent); }
+/* Nav centered across the top bar, independent of the brand's width. */
+.site-topbar .topbar-nav {
+  position: absolute; left: 50%; transform: translateX(-50%);
+  display: flex; gap: 1.4rem; white-space: nowrap;
+}
+.site-topbar .topbar-nav a {
+  color: var(--text); font-weight: 600; font-size: .9rem;
+  text-transform: uppercase; letter-spacing: .04em;
+}
+.site-topbar .topbar-nav a:hover { color: var(--accent); text-decoration: none; }
 
 /* ---- primary nav --------------------------------------------------- */
 .site-nav {
@@ -76,10 +122,35 @@ a:hover, a:focus { color: var(--accent-dark); text-decoration: underline; }
   text-transform: uppercase; letter-spacing: .04em;
 }
 .site-nav a:hover { color: var(--accent); text-decoration: none; }
+.site-nav .container { position: relative; }
+
+/* ---- language toggle (中文 | English) ------------------------------ */
+.lang-toggle {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .8rem; white-space: nowrap;
+}
+.lang-toggle a {
+  color: var(--text-muted); font-weight: 600;
+  text-transform: none; letter-spacing: 0;
+}
+.lang-toggle a:hover { color: var(--accent); text-decoration: none; }
+.lang-toggle a.active { color: var(--accent); cursor: default; }
+.lang-toggle .sep { color: var(--border); }
+/* On the home banner nav, pin the toggle to the right of the centered links. */
+.site-nav .lang-toggle {
+  position: absolute; right: 0; top: 50%; transform: translateY(-50%);
+}
+/* On the single-post sticky bar, the toggle rides the far right. */
+.site-topbar .lang-toggle { margin-left: auto; flex-shrink: 0; }
 
 /* ---- main / article ------------------------------------------------ */
 .site-main { padding: 2.6rem 0 3.5rem; }
-.post { background: var(--bg-content); }
+/* Single blog entry: less headroom so the article body leads. */
+.layout-post .site-main { padding-top: 1.4rem; }
+.layout-post .post-header { margin-top: 0; }
+/* Content areas inherit the beige body; only the chrome (header/nav/footer)
+   stays white. */
+.post { background: transparent; }
 
 .post-header { max-width: var(--max-text); margin: 0 auto 1.6rem; }
 .post-title { font-size: 2.1rem; line-height: 1.2; margin: 0 0 .5rem; font-weight: 800; }

@@ -5,7 +5,7 @@ title: "Ling Zhang's Blog"
 description: "Ling Zhang's Blog — tech, work, and life notes (since 2004, migrated from WordPress)"
 url: "https://sjtuzl.github.io"
 baseurl: ""
-lang: "zh-CN"
+lang: "en"
 timezone: "Asia/Shanghai"
 
 author:
@@ -29,6 +29,15 @@ kramdown:
 # Home feed shows the full article body (everything before this marker); the
 # archived comments live after it, so they appear on the post page only.
 excerpt_separator: "<!--more-->"
+
+# Front-matter defaults so a NEW post needs only `title` + `date`.
+# (Existing migrated posts already declare these explicitly, so this
+# changes nothing for them — it only saves boilerplate going forward.)
+defaults:
+  - scope: { path: "", type: "posts" }
+    values:
+      layout: "post"
+      has_comments: false
 
 plugins:
   - jekyll-paginate

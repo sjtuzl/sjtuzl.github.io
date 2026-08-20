@@ -8,7 +8,7 @@
      avatar never disappears. On non-post pages the full centered banner
      (large avatar + bio) sits ABOVE the sticky bar and scrolls away.
      Labels carry data-i18n keys so the toggle swaps EN/ZH client-side. -->
-{% assign lang_toggle = '<div class="lang-toggle"><a href="?lang=zh" data-set-lang="zh">中文</a><span class="sep">|</span><a href="?lang=en" data-set-lang="en">English</a></div>' %}
+{% assign lang_toggle = '<div class="lang-toggle"><a href="?lang=zh" data-set-lang="zh"><span class="lt-full">中文</span><span class="lt-short">中</span></a><span class="sep">|</span><a href="?lang=en" data-set-lang="en"><span class="lt-full">English</span><span class="lt-short">EN</span></a></div>' %}
 {% unless page.layout == 'post' %}
 <header class="site-header">
   <div class="container">

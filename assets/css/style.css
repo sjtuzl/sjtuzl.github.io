@@ -136,6 +136,8 @@ body:not(.layout-post) .site-topbar .brand.is-visible { opacity: 1; visibility: 
 .lang-toggle a:hover { color: var(--accent); text-decoration: none; }
 .lang-toggle a.active { color: var(--accent); cursor: default; }
 .lang-toggle .sep { color: var(--border); }
+/* Full labels by default; the short 中 / EN variants show on phones. */
+.lang-toggle .lt-short { display: none; }
 /* On the home banner nav, pin the toggle to the right of the centered links. */
 .site-nav .lang-toggle {
   position: absolute; right: 0; top: 50%; transform: translateY(-50%);
@@ -249,4 +251,10 @@ body:not(.layout-post) .site-topbar .brand.is-visible { opacity: 1; visibility: 
   html { font-size: 17px; }
   .post-title { font-size: 1.7rem; }
   .post-content { font-size: 1.05rem; }
+  /* On phones the compact sticky bar shows the avatar only (the brand text
+     "Ling Zhang's Blog" crowds the nav), and the language toggle uses the
+     short 中 | EN labels. Desktop is unchanged. */
+  .site-topbar .brand .site-title { display: none; }
+  .lang-toggle .lt-full { display: none; }
+  .lang-toggle .lt-short { display: inline; }
 }

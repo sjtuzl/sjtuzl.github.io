@@ -210,6 +210,25 @@ body:not(.layout-post) .site-topbar .brand.is-visible { opacity: 1; visibility: 
 .read-more { max-width: var(--max-text); margin: 1.2rem auto 0; }
 .read-more a { font-weight: 600; text-transform: uppercase; letter-spacing: .04em; font-size: .85rem; }
 
+/* Home-feed truncation. The link is hidden by default and revealed only on
+   entries the clamp JS marks .is-clamped (body taller than the preview limit).
+   So the link means "there is more body to read" — never tied to comments.
+   With JS off, no entry is clamped: long posts render in full, no link. */
+.read-more { display: none; }
+.feed-entry.is-clamped .read-more { display: block; }
+
+.feed-entry.is-clamped .post-content {
+  max-height: 22rem;
+  overflow: hidden;
+  position: relative;
+}
+.feed-entry.is-clamped .post-content::after {
+  content: "";
+  position: absolute; left: 0; right: 0; bottom: 0; height: 5.5rem;
+  background: linear-gradient(to bottom, rgba(244, 236, 221, 0), var(--bg-reading));
+  pointer-events: none;
+}
+
 /* ---- post lists (archive / year) ----------------------------------- */
 .post-list { max-width: var(--max-wide); margin: 0 auto; list-style: none; padding: 0; }
 .post-list-item { padding: 1.3rem 0; border-bottom: 1px solid var(--border); }

@@ -3,11 +3,11 @@ title: Moving to Github Pages
 date: 2026-09-04 18:05:00 +0800
 ---
 
-I just finished migrating my blog website hosted on DreamHost to GitHub Pages (github.io). The old WordPress site has been deployed since July 2006 when I first migrated my blog content from a blogging host provider in China.
+I just finished migrating my blog website hosted on DreamHost to GitHub Pages (github.io). The old WordPress site has been deployed since July 2006 right after I migrated my blog content from a blogging host provider in China.
 
-Moving from DreamHost to GitHub took me about half a day using Claude Code to finish all the migration code. Everything went extremely smoothly, and Claude nearly made no mistakes. I spent more hours on polishing the UI and fixing some smaller experience problems.
+Moving from DreamHost to GitHub took me about half a day using Claude Code. It gave me the insights on how to complete this task and wrote all the migration code. Everything went extremely smooth, and Claude nearly made no mistakes. I spent more hours on polishing the UI and fixing some smaller user experience problems.
 
-I no long need to pay **$191.88/year**. Open Source and AI win:-)
+I no longer need to pay **$191.88/year**. Open Source and AI win:-)
 
 <img src="/assets/media/uploads/2026/09/dreamhost-to-github.png" width="500" height="333" style="display: block; margin-left: auto; margin-right: auto;">
 

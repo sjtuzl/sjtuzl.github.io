@@ -59,6 +59,9 @@ exclude:
   - README.md
   - POST_TEMPLATE.md
   - start.sh
+  - xhs.sh
+  - xhs.py
+  - xhs-output/
   - vendor/
   - .bundle/
   - bin/

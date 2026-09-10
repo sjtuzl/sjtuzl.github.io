@@ -8,3 +8,6 @@ _preview/
 # Not tracked: workflow needs a `workflow`-scoped token; we deploy via classic
 # Pages instead. Kept locally in case you switch to GitHub Actions later.
 .github/
+
+# Xiaohongshu draft material (generated, not published)
+xhs-output/

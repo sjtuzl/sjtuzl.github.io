@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>写文章 · 张岭的博客</title>
+<style>
+  :root{
+    --bg:#f4ecdd; --card:#fffdf8; --text:#202020; --muted:#6d6d6d;
+    --accent:#cd2653; --accent-dark:#b31e46; --border:#e3d9c6; --ok:#1a7f4b;
+    --sans:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--text);font-family:var(--sans);
+    font-size:16px;line-height:1.6;-webkit-text-size-adjust:100%}
+  .wrap{max-width:680px;margin:0 auto;padding:24px 18px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:20px}
+  .brand{font-weight:700;font-size:1.15rem}
+  .brand .dot{color:var(--accent)}
+  h1{font-size:1.4rem;margin:.2em 0 .6em}
+  .card{background:var(--card);border:1px solid var(--border);border-radius:12px;
+    padding:20px;margin-bottom:18px}
+  label{display:block;font-weight:600;margin:14px 0 6px;font-size:.92rem}
+  .hint{color:var(--muted);font-weight:400;font-size:.82rem}
+  input[type=text],input[type=datetime-local],textarea{
+    width:100%;padding:11px 12px;border:1px solid var(--border);border-radius:8px;
+    background:#fff;color:var(--text);font-family:inherit;font-size:1rem}
+  textarea{min-height:280px;resize:vertical;line-height:1.7}
+  input:focus,textarea:focus{outline:none;border-color:var(--accent)}
+  .row{display:flex;gap:12px;flex-wrap:wrap}
+  .row>div{flex:1;min-width:180px}
+  button{font-family:inherit;font-size:1rem;border:none;border-radius:8px;cursor:pointer;
+    padding:11px 18px;font-weight:600}
+  .btn-primary{background:var(--accent);color:#fff}
+  .btn-primary:hover{background:var(--accent-dark)}
+  .btn-primary:disabled{background:#d8a9b6;cursor:default}
+  .btn-ghost{background:transparent;color:var(--muted);border:1px solid var(--border);padding:7px 12px;font-size:.85rem}
+  .btn-ghost:hover{color:var(--accent);border-color:var(--accent)}
+  .toolbar{display:flex;gap:10px;align-items:center;margin:8px 0 0;flex-wrap:wrap}
+  .status{margin-top:14px;padding:12px 14px;border-radius:8px;font-size:.92rem;display:none}
+  .status.show{display:block}
+  .status.err{background:#fbe6ec;color:var(--accent-dark);border:1px solid #f0c3d0}
+  .status.ok{background:#e6f4ec;color:var(--ok);border:1px solid #bfe4cd}
+  .status.info{background:#f3ead6;color:#7a6a45;border:1px solid #e3d4b0}
+  .status a{color:inherit;font-weight:600}
+  .who{font-size:.82rem;color:var(--muted)}
+  .who b{color:var(--text)}
+  a.link{color:var(--accent);text-decoration:none}
+  .spinner{display:inline-block;width:14px;height:14px;border:2px solid #fff;
+    border-top-color:transparent;border-radius:50%;animation:spin .7s linear infinite;vertical-align:-2px;margin-right:6px}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  code{background:#efe6d4;padding:1px 5px;border-radius:4px;font-size:.88em}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <span class="brand"><span class="dot">●</span> 张岭的博客 · 写文章</span>
+    <button id="logout" class="btn-ghost" style="display:none">退出/清除钥匙</button>
+  </header>
+
+  <!-- ===== Token setup screen ===== -->
+  <section id="setup" class="card" style="display:none">
+    <h1>先放一把「钥匙」</h1>
+    <p class="hint">粘贴一个只对本仓库有效的 GitHub Token（fine-grained，权限只勾 <b>Contents 读写</b>）。
+       它只存在这台设备的浏览器里，我们无法看到。生成方法见下方说明。</p>
+    <label for="token">GitHub Token</label>
+    <input id="token" type="text" placeholder="github_pat_... 或 ghp_..." autocomplete="off" spellcheck="false">
+    <div class="toolbar">
+      <button id="saveToken" class="btn-primary">保存并验证</button>
+    </div>
+    <div id="setupStatus" class="status"></div>
+    <details style="margin-top:16px">
+      <summary class="hint" style="cursor:pointer">如何生成这把 Token（点开看步骤）</summary>
+      <ol class="hint" style="line-height:1.8">
+        <li>打开 GitHub → 右上头像 → <b>Settings</b> → 最底 <b>Developer settings</b>。</li>
+        <li><b>Personal access tokens</b> → <b>Fine-grained tokens</b> → <b>Generate new token</b>。</li>
+        <li>Repository access 选 <b>Only select repositories</b> → 勾 <code>sjtuzl/sjtuzl.github.io</code>。</li>
+        <li>Permissions → Repository permissions → <b>Contents</b> 设为 <b>Read and write</b>（其它不用动）。</li>
+        <li>设个过期时间 → Generate → 复制那串 <code>github_pat_…</code> 粘到上面。</li>
+      </ol>
+    </details>
+  </section>
+
+  <!-- ===== Compose screen ===== -->
+  <section id="compose" style="display:none">
+    <div class="who" id="who"></div>
+    <div class="card" style="margin-top:10px">
+      <label for="title">标题</label>
+      <input id="title" type="text" placeholder="文章标题">
+
+      <div class="row">
+        <div>
+          <label for="date">发布时间 <span class="hint">（北京时间 +0800）</span></label>
+          <input id="date" type="datetime-local">
+        </div>
+        <div>
+          <label for="slug">网址后缀 <span class="hint">（英文，如 my-first-post）</span></label>
+          <input id="slug" type="text" placeholder="my-first-post" autocomplete="off" spellcheck="false">
+        </div>
+      </div>
+
+      <label for="body">正文 <span class="hint">（Markdown；用下面按钮插入图片）</span></label>
+      <textarea id="body" placeholder="在这里写正文……"></textarea>
+      <div class="toolbar">
+        <button id="pickImg" class="btn-ghost">＋ 上传图片</button>
+        <input id="imgInput" type="file" accept="image/*" style="display:none">
+        <span id="imgStatus" class="hint"></span>
+      </div>
+
+      <div class="toolbar" style="margin-top:18px">
+        <button id="publish" class="btn-primary">发布</button>
+        <button id="reset" class="btn-ghost">清空</button>
+      </div>
+      <div id="status" class="status"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+// ---- repo config -------------------------------------------------------
+const OWNER = "sjtuzl";
+const REPO  = "sjtuzl.github.io";
+const BRANCH = "main";
+const SITE = "https://sjtuzl.github.io";
+const TOKEN_KEY = "blog_gh_token";
+
+const $ = (id) => document.getElementById(id);
+
+// ---- token storage -----------------------------------------------------
+const getToken = () => localStorage.getItem(TOKEN_KEY) || "";
+const setToken = (t) => localStorage.setItem(TOKEN_KEY, t);
+const clearToken = () => localStorage.removeItem(TOKEN_KEY);
+
+// ---- base64 helpers (unicode & binary safe) ----------------------------
+function bytesToB64(bytes){
+  let bin = "", chunk = 0x8000;
+  for (let i = 0; i < bytes.length; i += chunk)
+    bin += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+  return btoa(bin);
+}
+const textToB64 = (s) => bytesToB64(new TextEncoder().encode(s));
+
+// ---- GitHub API --------------------------------------------------------
+async function gh(path, opts={}){
+  const res = await fetch(`https://api.github.com/${path}`, {
+    ...opts,
+    headers: {
+      "Authorization": `Bearer ${getToken()}`,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      ...(opts.body ? {"Content-Type":"application/json"} : {})
+    }
+  });
+  return res;
+}
+async function putFile(path, b64, message){
+  const res = await gh(`repos/${OWNER}/${REPO}/contents/${path}`, {
+    method:"PUT",
+    body: JSON.stringify({ message, content: b64, branch: BRANCH })
+  });
+  if (!res.ok){
+    let msg = `GitHub ${res.status}`;
+    try { const j = await res.json(); if (j.message) msg += `: ${j.message}`; } catch(e){}
+    const err = new Error(msg); err.status = res.status; throw err;
+  }
+  return res.json();
+}
+
+// ---- status helpers ----------------------------------------------------
+function say(el, kind, html){
+  el.className = `status show ${kind}`;
+  el.innerHTML = html;
+}
+function clear(el){ el.className = "status"; el.innerHTML = ""; }
+
+// ---- date helpers ------------------------------------------------------
+function beijingNow(){
+  const d = new Date();
+  return new Date(d.getTime() + d.getTimezoneOffset()*60000 + 8*3600000);
+}
+const pad = (n) => String(n).padStart(2,"0");
+function toLocalInput(d){ // for datetime-local value
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}T${pad(d.getHours())}:${pad(d.getMinutes())}`;
+}
+
+// ---- screens -----------------------------------------------------------
+function showSetup(){
+  $("setup").style.display = "block";
+  $("compose").style.display = "none";
+  $("logout").style.display = "none";
+}
+async function showCompose(){
+  $("setup").style.display = "none";
+  $("compose").style.display = "block";
+  $("logout").style.display = "inline-block";
+  $("date").value = toLocalInput(beijingNow());
+  // greet + verify access quietly
+  try{
+    const res = await gh(`repos/${OWNER}/${REPO}`);
+    if (res.ok){
+      const j = await res.json();
+      const perm = j.permissions && j.permissions.push ? "可写" : "只读⚠";
+      $("who").innerHTML = `已连接仓库 <b>${j.full_name}</b>（${perm}）`;
+    } else {
+      $("who").innerHTML = `⚠ 无法访问仓库（${res.status}）——钥匙可能无效或权限不足。`;
+    }
+  }catch(e){ $("who").textContent = "⚠ 网络错误，稍后重试。"; }
+}
+
+// ---- boot --------------------------------------------------------------
+if (getToken()) showCompose(); else showSetup();
+
+// ---- token actions -----------------------------------------------------
+$("saveToken").onclick = async () => {
+  const t = $("token").value.trim();
+  if (!t){ say($("setupStatus"),"err","请先粘贴 Token。"); return; }
+  setToken(t);
+  say($("setupStatus"),"info",`<span class="spinner"></span>验证中…`);
+  const res = await gh(`repos/${OWNER}/${REPO}`);
+  if (res.ok){
+    const j = await res.json();
+    if (!(j.permissions && j.permissions.push)){
+      say($("setupStatus"),"err","这把钥匙对本仓库没有写权限，请把 Contents 设为 Read and write 后重新生成。");
+      clearToken(); return;
+    }
+    clear($("setupStatus")); $("token").value = "";
+    showCompose();
+  } else {
+    clearToken();
+    say($("setupStatus"),"err",`验证失败（${res.status}）：钥匙无效、过期或没勾这个仓库。`);
+  }
+};
+$("logout").onclick = () => {
+  if (confirm("清除本设备保存的钥匙？下次需重新粘贴。")){ clearToken(); location.reload(); }
+};
+
+// ---- image upload ------------------------------------------------------
+$("pickImg").onclick = () => $("imgInput").click();
+$("imgInput").onchange = async () => {
+  const file = $("imgInput").files[0];
+  if (!file) return;
+  const dv = $("date").value ? new Date($("date").value) : beijingNow();
+  const Y = dv.getFullYear(), M = pad(dv.getMonth()+1);
+  const ext = (file.name.split(".").pop() || "png").toLowerCase().replace(/[^a-z0-9]/g,"");
+  const base = (file.name.replace(/\.[^.]+$/,"").replace(/[^a-zA-Z0-9-_]/g,"-").toLowerCase().slice(0,40)) || "image";
+  const name = `${base}-${Date.now()}.${ext}`;
+  const path = `assets/media/uploads/${Y}/${M}/${name}`;
+  $("imgStatus").innerHTML = `<span class="spinner" style="border-color:#cd2653;border-top-color:transparent"></span>上传中…`;
+  try{
+    const buf = new Uint8Array(await file.arrayBuffer());
+    await putFile(path, bytesToB64(buf), `Upload image ${name}`);
+    const md = `\n![${base}](/${path})\n`;
+    const ta = $("body");
+    const atCursor = document.activeElement === ta;
+    const s = atCursor ? ta.selectionStart : ta.value.length;
+    const e = atCursor ? ta.selectionEnd : ta.value.length;
+    ta.value = ta.value.slice(0,s) + md + ta.value.slice(e);
+    $("imgStatus").innerHTML = `✓ 已插入图片`;
+  }catch(err){
+    $("imgStatus").innerHTML = `✗ ${err.message}`;
+  }
+  $("imgInput").value = "";
+};
+
+// ---- publish -----------------------------------------------------------
+$("reset").onclick = () => {
+  if (!confirm("清空当前内容？")) return;
+  $("title").value = ""; $("slug").value = ""; $("body").value = "";
+  $("date").value = toLocalInput(beijingNow());
+  clear($("status")); $("imgStatus").textContent = "";
+};
+
+$("publish").onclick = async () => {
+  const title = $("title").value.trim();
+  const slug = $("slug").value.trim();
+  const body = $("body").value;
+  const dtv = $("date").value; // YYYY-MM-DDTHH:mm
+  const st = $("status");
+
+  if (!title){ say(st,"err","请填写标题。"); return; }
+  if (!/^[a-z0-9-]+$/.test(slug)){ say(st,"err","网址后缀只能用小写字母、数字和连字符（如 my-first-post）。"); return; }
+  if (!dtv){ say(st,"err","请选择发布时间。"); return; }
+  if (!body.trim()){ say(st,"err","正文不能为空。"); return; }
+
+  const [datePart, timePart] = dtv.split("T");
+  const [Y,M,D] = datePart.split("-");
+  const dateStr = `${datePart} ${timePart}:00 +0800`;
+  const path = `_posts/${Y}-${M}-${D}-${slug}.md`;
+  const safeTitle = title.replace(/"/g,'\\"');
+  const content = `---\ntitle: "${safeTitle}"\ndate: ${dateStr}\n---\n\n${body.trim()}\n`;
+  const postUrl = `${SITE}/${Y}${M}${D}/${slug}.html`;
+
+  const btn = $("publish"); btn.disabled = true;
+  say(st,"info",`<span class="spinner"></span>发布中…`);
+  try{
+    const r = await putFile(path, textToB64(content), `Add post: ${title}`);
+    const commitUrl = r.commit && r.commit.html_url;
+    say(st,"ok",
+      `✓ 已发布！一两分钟后上线：<br>`+
+      `👉 <a href="${postUrl}" target="_blank" rel="noopener">${postUrl}</a><br>`+
+      (commitUrl ? `<span class="hint">提交记录：<a href="${commitUrl}" target="_blank" rel="noopener">查看</a></span>` : ``));
+    $("title").value=""; $("slug").value=""; $("body").value="";
+    $("date").value = toLocalInput(beijingNow()); $("imgStatus").textContent="";
+  }catch(err){
+    if (err.status === 422 || err.status === 409){
+      say(st,"err","发布失败：该「日期 + 网址后缀」的文章可能已存在，换一个后缀再试。");
+    } else if (err.status === 401 || err.status === 403){
+      say(st,"err","钥匙失效或权限不足，请点右上「退出/清除钥匙」重新设置。");
+    } else {
+      say(st,"err",`发布失败 ${err.message}`);
+    }
+  }
+  btn.disabled = false;
+};
+</script>
+</body>
+</html>

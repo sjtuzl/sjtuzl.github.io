@@ -1,8 +1,14 @@
 ---
 layout: default
 ---
+{% comment %} 老内容开关（见 _config.yml 的 show_legacy / legacy_before）：
+   显示老文时用分页器（paginator）翻全部文章；隐藏老文时改为遍历 site.posts，
+   只渲染年份 >= legacy_before 的文章，并隐藏分页条（此时只剩新内容，无需翻页）。{% endcomment %}
+{% if site.show_legacy %}{% assign feed_source = paginator.posts %}{% else %}{% assign feed_source = site.posts %}{% endif %}
 <div class="post-feed">
-{% for post in paginator.posts %}
+{% for post in feed_source %}
+  {% assign post_year = post.date | date: '%Y' | plus: 0 %}
+  {% if site.show_legacy or post_year >= site.legacy_before %}
   {% comment %} The "Read more" link appears ONLY when the body is actually
      truncated: feed-clamp JS (in topbar.js) measures each entry and adds
      .is-clamped to over-tall ones, which both crops the body and reveals the
@@ -18,9 +24,11 @@ layout: default
     </div>
     <p class="read-more"><a href="{{ post.url }}"><span data-i18n="index.readmore">Read more</span> →</a></p>
   </article>
+  {% endif %}
 {% endfor %}
 </div>
 
+{% if site.show_legacy %}
 <nav class="pagination">
   {% if paginator.previous_page %}
     <a href="{{ paginator.previous_page_path | relative_url }}" data-i18n="index.newer">← Newer posts</a>
@@ -30,3 +38,4 @@ layout: default
     <a href="{{ paginator.next_page_path | relative_url }}" data-i18n="index.older">Older posts →</a>
   {% else %}<span></span>{% endif %}
 </nav>
+{% endif %}

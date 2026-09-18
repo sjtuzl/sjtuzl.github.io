@@ -15,11 +15,13 @@ Static blog on GitHub Pages, migrated from the WordPress site at
 | `assets/js/topbar.js` | Reveals the sticky bar's mini avatar once the banner scrolls away. |
 | `assets/media/` | Migrated images & attachments (`uploads/`, `photos/`, `files/`, `special/`, `images/`). |
 | `_posts/*.md` | All posts, in one folder (`YYYY-MM-DD-slug.md`). |
-| `index.html` | Paginated home (10/page). |
-| `archive.html` | Full archive grouped by year (by post `date`, not folders). |
+| `index.html` | Paginated home (10/page); can hide pre-cutoff posts (see *Hiding old posts*). |
+| `archive.html` | Full archive grouped by year (by post `date`, not folders); respects the legacy toggle. |
 | `about.html`, `404.html`, `special/` | Static pages. |
-| `_config.yml` | Site config: permalink, pagination, giscus keys, post `defaults`. |
+| `_config.yml` | Site config: permalink, pagination, giscus keys, post `defaults`, and the `show_legacy` toggle. |
 | `start.sh` | One-command local build/preview. |
+| `admin/index.html` | Browser-based post editor — publish from any device with no local tools (see *Publishing from a browser*). |
+| `xhs.sh`, `xhs.py` | Generate Xiaohongshu (小红书) draft material for a post (see *Xiaohongshu cards*). |
 
 Posts get their URL from their `date` + the global
 `permalink: /:year:month:day/:title.html` rule — **not** from their folder, so
@@ -43,6 +45,51 @@ Write the body in Markdown…
 
 The URL becomes `/20260819/slug.html` automatically. You can also create the
 file directly on github.com — committing to the default branch auto-deploys.
+
+## Publishing from a browser (`/admin/`)
+
+`admin/index.html` is a self-contained page (no server, no third-party service)
+for writing a post from **any device's browser** — a phone or a borrowed PC with
+no VS Code or git. Open `https://sjtuzl.github.io/admin/`, paste a GitHub
+**fine-grained token** once (scope: this repo only, **Contents: Read and write**),
+then fill a form (title / date / slug / body) and upload images. On *发布* it
+creates `_posts/YYYY-MM-DD-slug.md` (and commits any images to `assets/`) through
+the GitHub Contents API. Currently supports **creating** posts, not editing old
+ones.
+
+The token is stored in the browser's `localStorage` and never leaves the device;
+a repo-scoped token limits the blast radius to this one repo. Use the
+*退出/清除钥匙* button to wipe it on a shared machine.
+
+## Xiaohongshu cards (`xhs.sh`)
+
+`./xhs.sh _posts/<file>.md` turns a post into ready-to-post Xiaohongshu (小红书)
+material — a paste-ready `copy.txt` (≤20-char title, opening hook, CTA, tags) and
+a set of 1080×1440 theme cards (cover + opening + CTA) rendered from the blog's
+beige theme via headless Chrome. Output lands in `xhs-output/<slug>/`
+(git-ignored). Nothing is posted; you upload the cards and paste the text into
+Xiaohongshu yourself. Tunable constants (title/body limits, card count) are at the
+top of `xhs.py`.
+
+## Hiding old posts (`show_legacy`)
+
+Two keys in `_config.yml` control whether pre-cutoff posts appear on the **home
+feed and archive**:
+
+```yaml
+show_legacy: false   # false = hide old posts; true = show everything
+legacy_before: 2026  # a post whose year is < this is "legacy"
+```
+
+With `show_legacy: false`, the home feed and archive show only posts from
+`legacy_before` onward (and the home pager is hidden, since only recent posts
+remain). Flip to `true` to bring everything back — post URLs are unchanged
+throughout (each post pins its own `permalink`). Takes effect on the next
+build/push.
+
+This is **list-level filtering only**: hidden posts' individual pages are still
+generated (reachable by direct URL) and still appear in `feed.xml` and
+`sitemap.xml`. It declutters browsing, not search-engine/RSS discoverability.
 
 ## Local preview
 

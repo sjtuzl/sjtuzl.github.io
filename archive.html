@@ -3,13 +3,22 @@ layout: default
 title: Archive
 permalink: /archive.html
 ---
+{% comment %} 老内容开关（见 _config.yml）：show_legacy=false 时，只统计并显示
+   年份 >= legacy_before 的文章，早于该年的整段年份区块都不显示。{% endcomment %}
+{% assign visible_count = 0 %}
+{% for post in site.posts %}
+  {% assign py = post.date | date: '%Y' | plus: 0 %}
+  {% if site.show_legacy or py >= site.legacy_before %}{% assign visible_count = visible_count | plus: 1 %}{% endif %}
+{% endfor %}
 <div class="post-header" style="max-width:var(--max-wide)">
   <h1 class="post-title" data-i18n="archive.heading">All Posts</h1>
-  <p class="post-meta" data-i18n-tpl="archive.count" data-n1="{{ site.posts | size }}">{{ site.posts | size }} posts</p>
+  <p class="post-meta" data-i18n-tpl="archive.count" data-n1="{{ visible_count }}">{{ visible_count }} posts</p>
 </div>
 
 {% assign posts_by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 {% for year in posts_by_year %}
+{% assign yr = year.name | plus: 0 %}
+{% if site.show_legacy or yr >= site.legacy_before %}
 <section class="archive-year">
   <h2>{{ year.name }} <span style="font-size:.7em;color:var(--text-muted)">({{ year.items | size }})</span></h2>
   <ul class="archive-list">
@@ -21,4 +30,5 @@ permalink: /archive.html
   {% endfor %}
   </ul>
 </section>
+{% endif %}
 {% endfor %}

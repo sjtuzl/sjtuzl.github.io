@@ -8,6 +8,16 @@ baseurl: ""
 lang: "en"
 timezone: "Asia/Shanghai"
 
+# ---------------------------------------------------------------------------
+# 老内容开关：控制 2026 年以前的博客是否在首页和归档里显示。
+#   show_legacy: false  → 隐藏（首页/归档都看不到老文，像下架一样）
+#   show_legacy: true   → 全部显示（恢复原样）
+# legacy_before 定义"老内容"的界线：发布年份 < 这个数字的算老文。
+# 注意：这是纯前端列表过滤——被隐藏的老文单篇页面/RSS/站点地图仍存在（按需求忽略）。
+# 改动后需重新构建/推送才生效。
+show_legacy: false
+legacy_before: 2026
+
 author:
   name: "Ling Zhang"
   linkedin: "https://www.linkedin.com/in/zhangling"
